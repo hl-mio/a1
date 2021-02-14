@@ -1,0 +1,51 @@
+spring:
+
+  autoconfigure:
+    # 排除掉druid原生的自动配置
+    exclude: com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure
+
+  # -- 数据库
+  datasource:
+    # 开启druid的监控页面
+    druid:
+      filters: stat,slf4j  # 添加后才会显示sql语句监控
+      web-stat-filter:     # 用于采集web-jdbc关联监控的数据
+        enabled: true
+        exclusions: js,gif,jpg,png,css,ico,/druid/*
+      stat-view-servlet:   # 监控网页的配置
+        enabled: true
+        login-username: admin
+        login-password: admin
+
+    # mybatis-plus 多数据源配置
+    dynamic:
+      # 全局连接池配置
+      druid:
+        initial-size: 2      # 连接池启动时的初始值
+        max-active: 10       # 连接池的最大值
+        min-idle: 5          # 最小空闲值.当空闲的连接数少于阀值时，连接池就会预申请去一些连接，以免洪峰来时来不及申请
+        max-wait: 5000       # 最大等待值
+        validation-query: SELECT 1
+        test-on-borrow: false
+        test-while-idle: true
+        time-between-eviction-runs-millis: 18800
+      # 默认数据源
+      primary: master
+      # 全部数据源，用 _ 来对数据源全分组，组内自动负载均衡
+      datasource:
+        master:
+          driver-class-name: com.mysql.cj.jdbc.Driver   # 比较新的mysql版本使用： com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://127.0.0.1:3369/mysql?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai
+          username: admin
+          password: admin
+        oauth2:
+          driver-class-name: com.mysql.cj.jdbc.Driver   # 比较新的mysql版本使用： com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://127.0.0.1:3369/oauth2?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai
+          username: admin
+          password: admin
+
+
+mybatis-plus:
+  # 扫描 mapper.xml
+  mapper-locations: classpath:/sql/**/*Mapper.xml,classpath:/mapper/**/*Mapper.xml
+

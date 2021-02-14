@@ -1,0 +1,12 @@
+spring:
+  # -- 数据库
+  datasource:
+    # mybatis-plus 多数据源配置
+    dynamic:
+      # 默认数据源
+      primary: oauth2
+
+
+oauth2:
+  tokenStoreType: redis
+  jwtSigningKey: "sae4631^8IKS@GH52AhgiVIE"

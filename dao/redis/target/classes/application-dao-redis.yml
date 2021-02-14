@@ -1,0 +1,26 @@
+spring:
+  jackson:
+    serialization:
+      INDENT_OUTPUT: true
+  # -- redis
+  redis:
+    database: 0      # 指定数据库，默认为0
+    timeout: 2000    # 连接超时时间，单位毫秒 （不能为0）
+    ssl: false       # 是否启用SSL连接，默认false
+    lettuce:
+      pool:
+        max-active: 20
+        max-idle: 20
+        min-idle: 0
+        max-wait: -1
+#    jedis:
+#      pool:   #连接池配置
+#        max-idle: 20      # 最大空闲连接数，默认8个。
+#        min-idle: 0       # 最小空闲连接数，默认0。
+#        max-wait: -1      # 获取连接的最大等待时间，默认-1，表示无限制，单位毫秒。默认值可能会因为获取不到连接，导致事务无法提交，数据库被锁，大量线程处于等待状态的情况。
+    host: 152.32.252.159
+    port: 35004
+    password: redis123
+    #    cluster:
+    #      max-redirects:    # 集群模式下，集群最大转发的数量
+    #      nodes: 192.168.1.40:7001  # 集群节点
